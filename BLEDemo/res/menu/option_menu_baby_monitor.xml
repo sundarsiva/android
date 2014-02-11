@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/menuitem_connect" 
+	android:title="@string/connect">
+	</item>
+	<item android:id="@+id/disconnect" android:title="@string/disconnect"></item><item android:id="@+id/clear" android:title="Clear data"></item><item android:id="@+id/exit" android:title="Exit"></item>
+	<item android:id="@+id/select_sensor" android:title="Select sensor">
+		<menu>
+			
+			
+			
+			
+			<group android:id="@+id/sensor_group" android:checkableBehavior="single"><item android:id="@+id/menu_temperature" android:title="Temperature" android:checked="true"></item><item android:id="@+id/menu_moisture" android:title="Moisture"></item><item android:id="@+id/menu_activity" android:title="Activity"></item><item android:id="@+id/menu_pressure" android:title="Pressure"></item>
+</group>
+		</menu>
+	</item>
+	
+	
+	</menu>

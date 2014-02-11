@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/menuitem_connect" 
+	android:title="@string/connect">
+	</item>
+	<item android:id="@+id/disconnect" android:title="@string/disconnect"></item><item android:id="@+id/exit" android:title="Exit"></item>
+	<item android:id="@+id/menu_calibrate" android:title="Calibrate"></item>
+	</menu>

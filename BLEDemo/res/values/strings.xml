@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, BLEDemoActivity!</string>
+    <string name="app_name">Compass</string>
+    <string name="moisture">Moisture</string>
+    <string name="temperature">Temperature</string>
+    <string name="empty"></string>
+    <string name="connect">Connect</string>
+    <string name="title_paired_devices"></string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="title_device_chooser">Select BLE device</string>
+    <string name="no_device_found">No device found</string>
+    <string name="baby_monitor">Baby Monitor</string>
+    <string name="activity">Activity</string>
+    <string name="autoscroll">Autoscroll</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="pressure">Pressure</string>
+    <string name="pkg_title">TI BLE Demos</string>
+</resources>
