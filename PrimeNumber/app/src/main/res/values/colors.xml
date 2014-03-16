@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent_white">#DCFFFFFF</color>
+    <color name="transparent_black">#80000000</color>
+    <color name="clover_green">#ff316c30</color>
+    <color name="clover_green_transparent">#80316c30</color>
+    <color name="clover_grey">#ff727272</color>
+</resources>

@@ -1,11 +1,13 @@
 package com.sundarsiva.primenumber.activity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sundarsiva.primenumber.R;
+import com.sundarsiva.primenumber.fragment.InputFragment;
+import com.sundarsiva.primenumber.fragment.PrimeFragment;
 
 public class PrimeActivity extends ActionBarActivity {
 
@@ -13,8 +15,8 @@ public class PrimeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prime);
+        addFragmentToView(new InputFragment(), PrimeFragment.DO_NOT_ADD_TO_FRAGMENT_STACK);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -34,6 +36,16 @@ public class PrimeActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addFragmentToView(PrimeFragment fragment, boolean addToBackStack){
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        String fragmentTag = fragment.getFragmentTag();
+        if(!fragment.isAdded() && addToBackStack){
+            fragmentTransaction.addToBackStack(fragmentTag);
+        }
+        fragmentTransaction.replace(R.id.fragment_container, fragment, fragmentTag);
+        fragmentTransaction.commit();
     }
 
 }
