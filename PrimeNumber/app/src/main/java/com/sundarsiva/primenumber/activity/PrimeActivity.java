@@ -1,9 +1,11 @@
-package com.sundarsiva.primenumber;
+package com.sundarsiva.primenumber.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.sundarsiva.primenumber.R;
 
 public class PrimeActivity extends ActionBarActivity {
 
