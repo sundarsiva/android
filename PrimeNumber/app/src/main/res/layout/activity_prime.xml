@@ -5,12 +5,22 @@
     android:background="@drawable/app_background"
 
     tools:context="com.sundarsiva.primenumber.activity.PrimeActivity">
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#DCFFFFFF"
+        style="@style/ProgressBarAppTheme"
+        android:indeterminate="true"/>
+
+
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#DCFFFFFF"/>
+        android:background="#DCFFFFFF"
+        android:layout_below="@id/progress_bar"/>
 
 
 </RelativeLayout>

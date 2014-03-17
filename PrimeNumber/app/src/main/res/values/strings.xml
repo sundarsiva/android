@@ -4,10 +4,12 @@
     <string name="app_name">PrimeNumber</string>
     <string name="action_settings">Settings</string>
     <string name="input_tv_welcome">Welcome!</string>
-    <string name="input_tv_prime_desc">A Prime number is a natural numbers that is greater than 1 and is only divisible by 1 and the number itself.</string>
+    <string name="input_tv_prime_desc">A prime number is a natural number that has exactly two distinct natural number divisors, which are 1 and the prime number itself.</string>
     <string name="input_tv_app_desc">You can use this app to find the first n prime number.</string>
     <string name="input_et_enter_n">Enter a number greater that 1</string>
     <string name="input_tst_enter_a_number">Please enter a number greater than 1.</string>
     <string name="input_bt_find">Find</string>
+
+    <string name="output_nth_prime">%1$s prime number</string>
 
 </resources>

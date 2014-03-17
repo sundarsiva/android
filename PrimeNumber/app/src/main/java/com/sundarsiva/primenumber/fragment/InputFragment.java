@@ -19,6 +19,7 @@ public class InputFragment extends PrimeFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getPrimeActivity().showHideProgressBar(false);
         View rootView = inflater.inflate(R.layout.fragment_input, container, false);
 
         final EditText etInputN = (EditText) rootView.findViewById(R.id.input_et_input_n);
@@ -27,11 +28,13 @@ public class InputFragment extends PrimeFragment {
         btFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getPrimeActivity().showHideProgressBar(true);
                 Log.d(TAG, ">find button clicked");
                 int inputN = 1;
                 try {
                     inputN = Integer.parseInt(etInputN.getText().toString());
                 } catch (NumberFormatException e) {
+                    getPrimeActivity().showHideProgressBar(false);
                     Toast.makeText(getPrimeActivity(), getString(R.string.input_tst_enter_a_number), Toast.LENGTH_LONG).show();
                     return;
                 }
