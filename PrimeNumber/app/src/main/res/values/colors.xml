@@ -5,4 +5,5 @@
     <color name="clover_green">#ff316c30</color>
     <color name="clover_green_transparent">#80316c30</color>
     <color name="clover_grey">#ff727272</color>
+    <color name="clover_grey_transparent">#50727272</color>
 </resources>

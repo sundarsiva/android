@@ -1,10 +1,12 @@
 package com.sundarsiva.primenumber.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,6 +30,9 @@ public class InputFragment extends PrimeFragment {
         btFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getPrimeActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
                 getPrimeActivity().showHideProgressBar(true);
                 Log.d(TAG, ">find button clicked");
                 int inputN = 1;

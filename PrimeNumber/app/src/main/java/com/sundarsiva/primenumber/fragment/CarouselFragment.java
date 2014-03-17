@@ -1,6 +1,5 @@
 package com.sundarsiva.primenumber.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -26,7 +25,6 @@ public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageC
     public static final float MAX_SCALE = 1f;
 
     private static OnCarouselScrolledListener mScrolledListener;
-    private Context mContext;
     private ViewPager mVpCarousel;
     private static List<Integer> mPrimeNumbers;
 
@@ -39,7 +37,6 @@ public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageC
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mContext = getPrimeActivity();
         super.onCreate(savedInstanceState);
     }
 
@@ -61,11 +58,11 @@ public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageC
                 @Override
                 public void run() {
                     mVpCarousel.setCurrentItem(primeNumberSize - 1);
+                    getPrimeActivity().showHideProgressBar(false);
                 }
             }, 100);
             this.onPageSelected(primeNumberSize - 1);
-       } 
-
+       }
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

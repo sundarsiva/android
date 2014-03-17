@@ -5,6 +5,6 @@
     <dimen name="carousel_top_margin">50dp</dimen>
 
     <dimen name="carousel_width">165dp</dimen>
-    <dimen name="carousel_height">85dp</dimen>
+    <dimen name="carousel_height">105dp</dimen>
 
     </resources>
