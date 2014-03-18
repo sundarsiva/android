@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="com.sundarsiva.primenumber"
+            android:name=".contentprovider.PrimeNumberProvider"
+            android:exported="true">
+        </provider>
     </application>
 
 </manifest>

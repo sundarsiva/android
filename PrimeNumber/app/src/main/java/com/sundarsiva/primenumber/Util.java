@@ -1,7 +1,7 @@
 package com.sundarsiva.primenumber;
 
 /**
- * Created by ssivasub on 3/16/14.
+ * Created by Sundar on 3/16/14.
  */
 public class Util {
     public static String addNumberSuffix(int num) {

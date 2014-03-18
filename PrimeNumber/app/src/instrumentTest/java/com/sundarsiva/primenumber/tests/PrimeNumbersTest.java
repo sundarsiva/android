@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 import java.util.List;
 
 /**
- * Created by ssivasub on 3/16/14.
+ * Created by Sundar on 3/16/14.
  */
 public class PrimeNumbersTest extends TestCase {
 

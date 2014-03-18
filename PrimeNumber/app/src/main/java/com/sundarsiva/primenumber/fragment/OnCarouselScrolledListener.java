@@ -1,7 +1,7 @@
 package com.sundarsiva.primenumber.fragment;
 
 /**
- * Created by ssivasub on 3/16/14.
+ * Created by Sundar on 3/16/14.
  */
 public interface OnCarouselScrolledListener {
 

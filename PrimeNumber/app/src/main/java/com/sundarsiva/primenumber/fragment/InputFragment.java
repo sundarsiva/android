@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.sundarsiva.primenumber.R;
 
 /**
- * Created by ssivasub on 3/16/14.
+ * Created by Sundar on 3/16/14.
  */
 public class InputFragment extends PrimeFragment {
 

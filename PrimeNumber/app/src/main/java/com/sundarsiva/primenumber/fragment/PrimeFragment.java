@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import com.sundarsiva.primenumber.activity.PrimeActivity;
 
 /**
- * Created by ssivasub on 3/16/14.
+ * Created by Sundar on 3/16/14.
  */
 public abstract class PrimeFragment extends Fragment {
 

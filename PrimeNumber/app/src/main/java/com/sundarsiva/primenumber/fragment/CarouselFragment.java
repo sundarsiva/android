@@ -15,7 +15,7 @@ import com.sundarsiva.primenumber.adapter.CarouselPagerAdapter;
 import java.util.List;
 
 /**
- * Created by ssivasub on 3/16/14.
+ * Created by Sundar on 3/16/14.
  */
 public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageChangeListener {
 

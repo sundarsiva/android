@@ -5,7 +5,7 @@ import com.sundarsiva.primenumber.Util;
 import junit.framework.TestCase;
 
 /**
- * Created by ssivasub on 3/16/14.
+ * Created by Sundar on 3/16/14.
  */
 public class UtilTest extends TestCase {
 
