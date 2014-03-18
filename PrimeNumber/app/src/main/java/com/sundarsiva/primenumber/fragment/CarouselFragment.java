@@ -140,6 +140,7 @@ public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageC
         int lastIndex = mCarouselPagerAdapter.getCount()-1;
         mVpCarousel.setCurrentItem(lastIndex);
         this.onPageSelected(lastIndex);
+        getPrimeActivity().showHideProgressBar(false);
     }
 
     @Override
