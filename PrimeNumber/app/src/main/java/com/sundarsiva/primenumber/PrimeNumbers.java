@@ -1,5 +1,7 @@
 package com.sundarsiva.primenumber;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -39,4 +41,22 @@ public class PrimeNumbers {
         }
         return true;
     }
+
+    public static List<Integer> getNPrimeNumber(int startingFrom, int primesToFind) {
+        List<Integer> primeNumbers = new ArrayList<Integer>();
+        if(primesToFind == 0 ) {
+            return primeNumbers;
+        }
+        int i = startingFrom+1;
+        while (primeNumbers.size() < primesToFind) {
+            if(isPrime(i)) {
+                primeNumbers.add(i);
+            }
+            i++;
+        }
+        return primeNumbers;
+    }
+
+
+
 }

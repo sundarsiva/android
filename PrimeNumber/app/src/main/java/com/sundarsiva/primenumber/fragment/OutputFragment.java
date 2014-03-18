@@ -44,12 +44,15 @@ public class OutputFragment extends PrimeFragment implements OnCarouselScrolledL
         assert rootView != null;
         mTvNthPrime = (TextView) rootView.findViewById(R.id.output_nth_prime);
         super.onCreateView(inflater, container, savedInstanceState);
+
+        CarouselFragment carouselFragment = CarouselFragment.newInstance(OutputFragment.this, mInputN);
+        getPrimeActivity().addFragmentToView(R.id.vp_carousel_container, carouselFragment, DO_NOT_ADD_TO_FRAGMENT_STACK);
+
         return rootView;
     }
 
     @Override
     public void onResume() {
-        new PrimeFinderTask().execute(mInputN);
         super.onResume();
     }
 
@@ -63,20 +66,6 @@ public class OutputFragment extends PrimeFragment implements OnCarouselScrolledL
         String nth = Util.addNumberSuffix(position + 1);
         String nthPrime = getString(R.string.output_nth_prime, nth);
         mTvNthPrime.setText(nthPrime);
-    }
-
-    private class PrimeFinderTask extends AsyncTask<Integer, Void, List<Integer>> {
-        @Override
-        protected List<Integer> doInBackground(Integer... n) {
-            List<Integer> primeNumber = PrimeNumbers.getFirstNPrimeNumbers(n[0]);
-            return primeNumber;
-        }
-
-        @Override
-        protected void onPostExecute(List<Integer> primeNumbers) {
-            CarouselFragment carouselFragment = CarouselFragment.newInstance(OutputFragment.this, primeNumbers);
-            getPrimeActivity().addFragmentToView(R.id.vp_carousel_container, carouselFragment, DO_NOT_ADD_TO_FRAGMENT_STACK);
-        }
     }
 
 }

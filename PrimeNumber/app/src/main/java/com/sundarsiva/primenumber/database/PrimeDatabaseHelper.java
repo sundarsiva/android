@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by Sundar on 3/17/14.
  */
 public class PrimeDatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "todotable.db";
+    private static final String DATABASE_NAME = "primes.db";
     private static final int DATABASE_VERSION = 1;
 
     public PrimeDatabaseHelper(Context context) {

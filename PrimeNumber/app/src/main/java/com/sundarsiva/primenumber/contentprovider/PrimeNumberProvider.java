@@ -8,7 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.text.TextUtils;
+import android.util.Log;
 
 import com.sundarsiva.primenumber.database.PrimeDatabaseHelper;
 import com.sundarsiva.primenumber.database.PrimeTable;
@@ -20,28 +20,28 @@ import java.util.HashSet;
  * Created by Sundar on 3/17/14.
  */
 public class PrimeNumberProvider extends ContentProvider{
-    // database
+    private static final String TAG = PrimeNumberProvider.class.getSimpleName();
     private PrimeDatabaseHelper database;
 
     // used for the UriMacher
     private static final int PRIMES = 10;
-    private static final int PRIME_ID = 20;
+    private static final int NTH_PRIME = 20;
 
-    private static final String AUTHORITY = "de.vogella.android.todos.contentprovider";
+    private static final String AUTHORITY = "com.sundarsiva.primenumber.contentprovider";
 
-    private static final String BASE_PATH = "todos";
+    private static final String BASE_PATH = "primes";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
             + "/" + BASE_PATH);
 
     public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-            + "/todos";
+            + "/primes";
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
-            + "/todo";
+            + "/prime";
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
         sURIMatcher.addURI(AUTHORITY, BASE_PATH, PRIMES);
-        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", PRIME_ID);
+        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", NTH_PRIME);
     }
 
     @Override
@@ -67,9 +67,9 @@ public class PrimeNumberProvider extends ContentProvider{
         switch (uriType) {
             case PRIMES:
                 break;
-            case PRIME_ID:
+            case NTH_PRIME:
                 // adding the ID to the original query
-                queryBuilder.appendWhere(PrimeTable.COLUMN_ID + "="
+                queryBuilder.appendWhere(PrimeTable.COLUMN_ID + "<="
                         + uri.getLastPathSegment());
                 break;
             default:
@@ -98,6 +98,7 @@ public class PrimeNumberProvider extends ContentProvider{
         switch (uriType) {
             case PRIMES:
                 id = sqlDB.insert(PrimeTable.TABLE_PRIMES, null, values);
+                Log.d(TAG, "created column with id: "+id);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);

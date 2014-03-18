@@ -1,6 +1,13 @@
 package com.sundarsiva.primenumber.fragment;
 
+import android.app.LoaderManager;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
@@ -9,15 +16,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.sundarsiva.primenumber.PrimeNumbers;
 import com.sundarsiva.primenumber.R;
 import com.sundarsiva.primenumber.adapter.CarouselPagerAdapter;
+import com.sundarsiva.primenumber.contentprovider.PrimeNumberProvider;
+import com.sundarsiva.primenumber.database.PrimeTable;
 
 import java.util.List;
 
 /**
  * Created by Sundar on 3/16/14.
  */
-public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageChangeListener {
+public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageChangeListener,
+        android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = CarouselFragment.class.getSimpleName();
 
@@ -26,43 +37,40 @@ public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageC
 
     private static OnCarouselScrolledListener mScrolledListener;
     private ViewPager mVpCarousel;
-    private static List<Integer> mPrimeNumbers;
+    private Context mContext;
+    private CarouselPagerAdapter mCarouselPagerAdapter;
+    private static final String INPUT_N = "input_n";
+    private int mInputN;
 
-    public static CarouselFragment newInstance(OnCarouselScrolledListener scrolledListener, List<Integer> primeNumbers) {
+    public static CarouselFragment newInstance(OnCarouselScrolledListener scrolledListener, int inputN) {
+        Bundle args = new Bundle();
+        args.putInt(INPUT_N, inputN);
         CarouselFragment cardCarouselFragment = new CarouselFragment();
-        mPrimeNumbers = primeNumbers;
+        cardCarouselFragment.setArguments(args);
         mScrolledListener = scrolledListener;
         return cardCarouselFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        mInputN = args.getInt(INPUT_N);
         super.onCreate(savedInstanceState);
+        mContext = getPrimeActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, ">onCreateView");
         final int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 172, getResources().getDisplayMetrics());
-        CarouselPagerAdapter carouselPagerAdapter = new CarouselPagerAdapter(mPrimeNumbers);
+        mCarouselPagerAdapter = new CarouselPagerAdapter(null);
         mVpCarousel = (ViewPager) getPrimeActivity().findViewById(R.id.vp_carousel_container);
         mVpCarousel.removeAllViews();
-        mVpCarousel.setAdapter(carouselPagerAdapter);
+        mVpCarousel.setAdapter(mCarouselPagerAdapter);
+        getLoaderManager().initLoader(-1, null, this);
         mVpCarousel.setOffscreenPageLimit(5);
         mVpCarousel.setPageMargin(-margin);
         mVpCarousel.setOnPageChangeListener(this);
-        final int primeNumberSize = mPrimeNumbers.size();
-
-        if(primeNumberSize > 0){
-            mVpCarousel.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mVpCarousel.setCurrentItem(primeNumberSize - 1);
-                    getPrimeActivity().showHideProgressBar(false);
-                }
-            }, 100);
-            this.onPageSelected(primeNumberSize - 1);
-       }
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -94,6 +102,49 @@ public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageC
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
+        String[] projection = { PrimeTable.COLUMN_ID, PrimeTable.COLUMN_PRIME_NUMBER };
+        return new CursorLoader(mContext, Uri.parse(PrimeNumberProvider.CONTENT_URI + "/" + mInputN), projection, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
+        Log.d(TAG, "onLoadFinished()");
+        int nPrimes = cursor.getCount();
+
+        if(nPrimes < mInputN) {
+            cursor.moveToLast();
+            int lastPrime = 0;
+            if(nPrimes > 0 && cursor.getColumnIndex(PrimeTable.COLUMN_PRIME_NUMBER) > 0) {
+                lastPrime = cursor.getInt(cursor.getColumnIndex(PrimeTable.COLUMN_PRIME_NUMBER));
+            }
+
+            int numPrimesToFind = mInputN - nPrimes;
+            List<Integer> primes = PrimeNumbers.getNPrimeNumber(lastPrime, numPrimesToFind);
+            int numFoundPrimes = primes.size();
+            ContentValues[] bulkValues = new ContentValues[numFoundPrimes];
+            for(int i = 0; i < numFoundPrimes; i++) {
+                ContentValues values = new ContentValues();
+                values.put(PrimeTable.COLUMN_PRIME_NUMBER, primes.get(i));
+                bulkValues[i] = values;
+            }
+            getPrimeActivity().getContentResolver().bulkInsert(PrimeNumberProvider.CONTENT_URI, bulkValues);
+            getLoaderManager().restartLoader(-1, null, this);
+            return;
+        }
+
+        mCarouselPagerAdapter.swapCursor(cursor);
+        int lastIndex = mCarouselPagerAdapter.getCount()-1;
+        mVpCarousel.setCurrentItem(lastIndex);
+        this.onPageSelected(lastIndex);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> arg0) {
+        mCarouselPagerAdapter.swapCursor(null);
     }
 
     @Override

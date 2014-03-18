@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <provider
-            android:authorities="com.sundarsiva.primenumber"
+            android:authorities="com.sundarsiva.primenumber.contentprovider"
             android:name=".contentprovider.PrimeNumberProvider"
             android:exported="true">
         </provider>

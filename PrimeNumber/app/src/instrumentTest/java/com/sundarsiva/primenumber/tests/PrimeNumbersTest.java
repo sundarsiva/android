@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class PrimeNumbersTest extends TestCase {
 
-    public void testGetPrimeNumbers() {
+    public void testGetFirstNPrimeNumbers() {
         List<Integer> primeNumbers = PrimeNumbers.getFirstNPrimeNumbers(0);
         assertNotNull(primeNumbers);
         assertEquals(primeNumbers.size(), 0);
@@ -22,6 +22,19 @@ public class PrimeNumbersTest extends TestCase {
         assertEquals(primeNumbers.get(1).intValue(), 3);
         assertEquals(primeNumbers.get(2).intValue(), 5);
         assertEquals(primeNumbers.get(3).intValue(), 7);
+    }
+
+    public void testGetNPrimeNumbers(){
+        List<Integer> primeNumbers = PrimeNumbers.getNPrimeNumber(0, 0);
+        assertNotNull(primeNumbers);
+        assertEquals(primeNumbers.size(), 0);
+
+        primeNumbers = PrimeNumbers.getNPrimeNumber(5, 4);
+        assertEquals(primeNumbers.size(), 4);
+        assertEquals(primeNumbers.get(0).intValue(), 7);
+        assertEquals(primeNumbers.get(1).intValue(), 11);
+        assertEquals(primeNumbers.get(2).intValue(), 13);
+        assertEquals(primeNumbers.get(3).intValue(), 17);
     }
 
 
