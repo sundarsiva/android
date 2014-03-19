@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PrimeNumber</string>
+    <string name="app_name">Optimus Prime Numbers</string>
     <string name="action_settings">Settings</string>
     <string name="input_tv_welcome">Welcome!</string>
     <string name="input_tv_prime_desc">A prime number is a natural number that has exactly two distinct natural number divisors, which are 1 and the prime number itself.</string>
