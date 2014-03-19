@@ -1,7 +1,5 @@
 package com.sundarsiva.primenumber.fragment;
 
-import android.app.LoaderManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -16,13 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.sundarsiva.primenumber.PrimeNumbers;
 import com.sundarsiva.primenumber.R;
 import com.sundarsiva.primenumber.adapter.CarouselPagerAdapter;
 import com.sundarsiva.primenumber.contentprovider.PrimeNumberProvider;
 import com.sundarsiva.primenumber.database.PrimeTable;
-
-import java.util.List;
 
 /**
  * Created by Sundar on 3/16/14.
@@ -51,12 +46,16 @@ public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageC
         return cardCarouselFragment;
     }
 
+    public CarouselFragment() {
+        setRetainInstance(true);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Bundle args = getArguments();
         mInputN = args.getInt(INPUT_N);
         super.onCreate(savedInstanceState);
-        mContext = getPrimeActivity();
+        mContext = ((PrimeFragment)getParentFragment()).getPrimeActivity();
     }
 
     @Override
@@ -64,7 +63,7 @@ public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageC
         Log.d(TAG, ">onCreateView");
         final int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 172, getResources().getDisplayMetrics());
         mCarouselPagerAdapter = new CarouselPagerAdapter(null);
-        mVpCarousel = (ViewPager) getPrimeActivity().findViewById(R.id.vp_carousel_container);
+        mVpCarousel = (ViewPager) getParentFragment().getView().findViewById(R.id.vp_carousel_container);
         mVpCarousel.removeAllViews();
         mVpCarousel.setAdapter(mCarouselPagerAdapter);
         getLoaderManager().initLoader(-1, null, this);

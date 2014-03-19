@@ -62,6 +62,7 @@ public class PrimeNumberProvider extends ContentProvider{
         queryBuilder.setTables(PrimeTable.TABLE_PRIMES);
 
         int uriType = sURIMatcher.match(uri);
+        Log.d(TAG, "uri: "+uri);
         Log.d(TAG, "uriType: "+uriType);
         int inputN = 0;
         switch (uriType) {

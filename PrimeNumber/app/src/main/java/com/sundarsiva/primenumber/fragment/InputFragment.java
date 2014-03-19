@@ -19,8 +19,13 @@ public class InputFragment extends PrimeFragment {
 
     private static final String TAG = InputFragment.class.getSimpleName();
 
+    public InputFragment() {
+        setRetainInstance(true);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, ">onCreateView");
         getPrimeActivity().showHideProgressBar(false);
         View rootView = inflater.inflate(R.layout.fragment_input, container, false);
 

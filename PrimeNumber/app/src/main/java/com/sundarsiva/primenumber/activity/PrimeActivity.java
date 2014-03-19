@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.sundarsiva.primenumber.R;
@@ -24,7 +22,9 @@ public class PrimeActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prime);
         mProgressBar = findViewById(R.id.progress_bar);
-        addFragmentToView(new InputFragment(), PrimeFragment.DO_NOT_ADD_TO_FRAGMENT_STACK);
+        if(savedInstanceState == null) {
+            addFragmentToView(new InputFragment(), PrimeFragment.DO_NOT_ADD_TO_FRAGMENT_STACK);
+        }
     }
 
     public void addFragmentToView(PrimeFragment fragment, boolean addToBackStack){
