@@ -38,16 +38,21 @@ public class InputFragment extends PrimeFragment {
                 InputMethodManager imm = (InputMethodManager) getPrimeActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-                getPrimeActivity().showHideProgressBar(true);
                 Log.d(TAG, ">find button clicked");
-                int inputN = 1;
+                int inputN = 0;
                 try {
                     inputN = Integer.parseInt(etInputN.getText().toString());
                 } catch (NumberFormatException e) {
-                    getPrimeActivity().showHideProgressBar(false);
                     Toast.makeText(getPrimeActivity(), getString(R.string.input_tst_enter_a_number), Toast.LENGTH_LONG).show();
                     return;
                 }
+
+                if(inputN < 1) {
+                    Toast.makeText(getPrimeActivity(), getString(R.string.input_tst_enter_a_number), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                getPrimeActivity().showHideProgressBar(true);
                 OutputFragment outputFragment = OutputFragment.newInstance(inputN);
                 getPrimeActivity().addFragmentToView(outputFragment, ADD_TO_FRAGMENT_STACK);
             }

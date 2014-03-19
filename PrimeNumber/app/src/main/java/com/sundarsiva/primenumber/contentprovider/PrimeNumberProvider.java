@@ -58,7 +58,6 @@ public class PrimeNumberProvider extends ContentProvider{
 
         int uriType = sURIMatcher.match(uri);
         Log.d(TAG, "uri: "+uri);
-        Log.d(TAG, "uriType: "+uriType);
         int inputN = 0;
         switch (uriType) {
             case PRIMES:
@@ -75,8 +74,6 @@ public class PrimeNumberProvider extends ContentProvider{
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
-
-        Log.d(TAG, "Query: "+queryBuilder.toString());
 
         SQLiteDatabase db = database.getWritableDatabase();
         Cursor cursor = queryBuilder.query(db, projection, selection,
