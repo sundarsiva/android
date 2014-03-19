@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_carousel_container"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="195dp"
-        android:layout_marginTop="@dimen/carousel_top_margin"
-        android:layout_gravity="center_horizontal"
-        android:overScrollMode="never" />
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/carousel_triangle_selector"
-        android:layout_gravity="center_horizontal"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_carousel_container"
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            android:layout_marginTop="@dimen/carousel_top_margin"
+            android:layout_gravity="center_horizontal"
+            android:overScrollMode="never" />
 
-    <View
-        android:layout_width="200dp"
-        android:layout_height="5dp"
-        android:background="@color/clover_green"
-        android:layout_gravity="center_horizontal"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/carousel_triangle_selector"
+            android:layout_gravity="center_horizontal"/>
 
-    <TextView
-        android:id="@+id/output_nth_prime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        style="@style/text_welcome"
-        android:text="nth prime number"
-        android:layout_gravity="center_horizontal"/>
+        <View
+            android:layout_width="200dp"
+            android:layout_height="5dp"
+            android:background="@color/clover_green"
+            android:layout_gravity="center_horizontal"/>
 
+        <TextView
+            android:id="@+id/output_nth_prime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            style="@style/text_welcome"
+            android:text="nth prime number"
+            android:layout_gravity="center_horizontal"/>
 
-
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
