@@ -113,29 +113,6 @@ public class CarouselFragment extends PrimeFragment implements ViewPager.OnPageC
     @Override
     public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
         Log.d(TAG, "onLoadFinished()");
-        int nPrimes = cursor.getCount();
-
-        if(nPrimes < mInputN) {
-            cursor.moveToLast();
-            int lastPrime = 0;
-            if(nPrimes > 0 && cursor.getColumnIndex(PrimeTable.COLUMN_PRIME_NUMBER) > 0) {
-                lastPrime = cursor.getInt(cursor.getColumnIndex(PrimeTable.COLUMN_PRIME_NUMBER));
-            }
-
-            int numPrimesToFind = mInputN - nPrimes;
-            List<Integer> primes = PrimeNumbers.getNPrimeNumber(lastPrime, numPrimesToFind);
-            int numFoundPrimes = primes.size();
-            ContentValues[] bulkValues = new ContentValues[numFoundPrimes];
-            for(int i = 0; i < numFoundPrimes; i++) {
-                ContentValues values = new ContentValues();
-                values.put(PrimeTable.COLUMN_PRIME_NUMBER, primes.get(i));
-                bulkValues[i] = values;
-            }
-            getPrimeActivity().getContentResolver().bulkInsert(PrimeNumberProvider.CONTENT_URI, bulkValues);
-            getLoaderManager().restartLoader(-1, null, this);
-            return;
-        }
-
         mCarouselPagerAdapter.swapCursor(cursor);
         int lastIndex = mCarouselPagerAdapter.getCount()-1;
         mVpCarousel.setCurrentItem(lastIndex);

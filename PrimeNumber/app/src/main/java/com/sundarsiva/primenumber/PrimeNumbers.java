@@ -14,22 +14,6 @@ public class PrimeNumbers {
 
     private static final String TAG = PrimeNumbers.class.getSimpleName();
 
-    public static List<Integer> getFirstNPrimeNumbers(int n) {
-        Log.d(TAG, ">getFirstNPrimeNumbers");
-        List<Integer> primeNumbers = new ArrayList<Integer>();
-
-        int i = 0;
-        while (primeNumbers.size() < n) {
-            i++;
-            if(isPrime(i)) {
-                primeNumbers.add(i);
-            }
-        }
-
-        return primeNumbers;
-
-    }
-
     public static boolean isPrime(int p){
         if(p == 1) {
             return false;
@@ -43,6 +27,7 @@ public class PrimeNumbers {
     }
 
     public static List<Integer> getNPrimeNumber(int startingFrom, int primesToFind) {
+        Log.d(TAG, ">getNPrimeNumber: Finding "+primesToFind+" starting from "+startingFrom);
         List<Integer> primeNumbers = new ArrayList<Integer>();
         if(primesToFind == 0 ) {
             return primeNumbers;

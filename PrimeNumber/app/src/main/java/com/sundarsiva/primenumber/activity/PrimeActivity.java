@@ -3,6 +3,7 @@ package com.sundarsiva.primenumber.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,30 +20,11 @@ public class PrimeActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, ">onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prime);
         mProgressBar = findViewById(R.id.progress_bar);
         addFragmentToView(new InputFragment(), PrimeFragment.DO_NOT_ADD_TO_FRAGMENT_STACK);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.prime, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void addFragmentToView(PrimeFragment fragment, boolean addToBackStack){
@@ -67,6 +49,5 @@ public class PrimeActivity extends FragmentActivity {
             mProgressBar.setVisibility(View.GONE);
         }
     }
-
 
 }

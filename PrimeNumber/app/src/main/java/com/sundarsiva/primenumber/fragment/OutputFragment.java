@@ -2,6 +2,7 @@ package com.sundarsiva.primenumber.fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class OutputFragment extends PrimeFragment implements OnCarouselScrolledL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, ">onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_output, null);
         assert rootView != null;
         mTvNthPrime = (TextView) rootView.findViewById(R.id.output_nth_prime);

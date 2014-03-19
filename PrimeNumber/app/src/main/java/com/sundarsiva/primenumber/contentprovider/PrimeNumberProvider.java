@@ -10,11 +10,13 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
 
+import com.sundarsiva.primenumber.PrimeNumbers;
 import com.sundarsiva.primenumber.database.PrimeDatabaseHelper;
 import com.sundarsiva.primenumber.database.PrimeTable;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by Sundar on 3/17/14.
@@ -54,32 +56,62 @@ public class PrimeNumberProvider extends ContentProvider{
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
 
-        // Using SQLiteQueryBuilder instead of query() method
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-
-        // check if the caller has requested a column which does not exists
         checkColumns(projection);
 
-        // Set the table
         queryBuilder.setTables(PrimeTable.TABLE_PRIMES);
 
         int uriType = sURIMatcher.match(uri);
+        Log.d(TAG, "uriType: "+uriType);
+        int inputN = 0;
         switch (uriType) {
             case PRIMES:
                 break;
             case NTH_PRIME:
-                // adding the ID to the original query
-                queryBuilder.appendWhere(PrimeTable.COLUMN_ID + "<="
-                        + uri.getLastPathSegment());
+                try {
+                    inputN = Integer.parseInt(uri.getLastPathSegment());
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("Cannot find prime numbers for input "+uri.getLastPathSegment());
+                }
+                queryBuilder.appendWhere(PrimeTable.COLUMN_ID + "<=" + inputN);
+
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
 
+        Log.d(TAG, "Query: "+queryBuilder.toString());
+
         SQLiteDatabase db = database.getWritableDatabase();
         Cursor cursor = queryBuilder.query(db, projection, selection,
                 selectionArgs, null, null, sortOrder);
-        // make sure that potential listeners are getting notified
+
+        /* if we couldn't find as many primes as requested, calculate them,
+        * insert them into the data base, update the cursor with a new query,
+        * and then return the update cursor back.*/
+
+        int nPrimes = cursor.getCount();
+        if(nPrimes < inputN) {
+            cursor.moveToLast();
+            int lastPrime = 0;
+            if(nPrimes > 0 && cursor.getColumnIndex(PrimeTable.COLUMN_PRIME_NUMBER) > 0) {
+                lastPrime = cursor.getInt(cursor.getColumnIndex(PrimeTable.COLUMN_PRIME_NUMBER));
+            }
+
+            int numPrimesToFind = inputN - nPrimes;
+            List<Integer> primes = PrimeNumbers.getNPrimeNumber(lastPrime, numPrimesToFind);
+            int numFoundPrimes = primes.size();
+            ContentValues[] bulkValues = new ContentValues[numFoundPrimes];
+            for(int i = 0; i < numFoundPrimes; i++) {
+                ContentValues values = new ContentValues();
+                values.put(PrimeTable.COLUMN_PRIME_NUMBER, primes.get(i));
+                bulkValues[i] = values;
+            }
+            bulkInsert(PrimeNumberProvider.CONTENT_URI, bulkValues);
+            cursor = queryBuilder.query(db, projection, selection,
+                    selectionArgs, null, null, sortOrder);
+        }
+
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
         return cursor;
