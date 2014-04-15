@@ -1,0 +1,20 @@
+<resources>
+    <string name="title_activity_cards_game">CardsGameActivity</string>
+
+    <string name="title_new_deck">New Deck</string>
+    <string name="title_shuffle_deck">Shuffle Deck</string>
+    <string name="title_deal_cards">Deal Cards</string>
+    <string name="title_return_cards">Return Cards</string>
+    <string name="title_destroy_deck">Destroy Deck</string>
+
+    <string name="fragment_cards_created_deck">Created new deck: %d</string>
+    <string name="fragment_cards_shuffle_deck">Shuffled the deck: %d</string>
+    <string name="fragment_cards_deal_cards">Dealing cards from deck: %d</string>
+    <string name="fragment_cards_return_cards">Returning cards back to deck: %d</string>
+    <string name="fragment_cards_destroy_deck">Destroyed deck: %d</string>
+
+    <string name="msg_service_connected">Service Connected</string>
+    <string name="msg_service_not_connected">Not connected to service anymore</string>
+    <string name="msg_could_not_connect">Sorry, could not connect to service</string>
+
+</resources>

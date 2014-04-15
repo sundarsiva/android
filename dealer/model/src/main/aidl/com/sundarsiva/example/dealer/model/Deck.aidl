@@ -1,0 +1,3 @@
+package com.sundarsiva.example.dealer.model;
+
+parcelable Deck;
